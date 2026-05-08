@@ -94,11 +94,8 @@ data-warehouse-project/
 │
 ├── dashboard/                          # Power BI Dashboard for sales, customer & product analysis
     ├──sales_dashboard.pbix
-    ├──dashboard_screenshots/           # Snapshots of the dashboard
-       ├──executive_dashboard.png       # Snapshot of the main page
-       ├──customer_insights.png         # Snapshot of the customer insights
-       ├──product_performance.png       # Snapshot of the product insights
-    ├──README.md
+    ├──dashboard_screenshots/           # Snapshots of the dashboard pages
+    ├──README.md                        # Dashboard overview
 │
 ├── README.md                           # Project overview and instructions
 ├── LICENSE                             # License information for the repository

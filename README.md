@@ -139,11 +139,11 @@ data-warehouse-project/
 - Tracked revenue patterns across multiple years
 - Compared product volume vs profitability for strategic planning
 ---
----
 ## 🛡️ License
 
 This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and share this project with proper attribution.
 
+---
 ## 🌟 About Me
 
 Hi there! I'm **Akarsh Kapoor**. I'm a curious data enthusiast who loves exploring SQL, analytics, and real-world problem solving. I enjoy turning raw data into useful insights while building projects that make learning data both practical and fun!

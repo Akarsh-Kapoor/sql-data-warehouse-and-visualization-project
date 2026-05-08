@@ -93,7 +93,7 @@ data-warehouse-project/
 ├── tests/                              # Test scripts and quality files
 │
 ├── dashboard/                          # Power BI Dashboard for sales, customer & product analysis
-    ├──sales_dashboard.pbix
+    ├──sales_dashboard.pbix             # PowerBI(.pbix) file for dashboard
     ├──dashboard_screenshots/           # Snapshots of the dashboard pages
     ├──README.md                        # Dashboard overview
 │

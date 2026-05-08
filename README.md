@@ -1,7 +1,15 @@
 # Data Warehouse and Analytics Project
 
 Welcome to the **Data Warehouse and Analytics Project** repository! 🚀  
-This project demonstrates a comprehensive data warehousing and analytics solution, from building a data warehouse to generating actionable insights. Designed as a portfolio project, it highlights industry best practices in data engineering and analytics.
+This project demonstrates a complete end-to-end data solution — from designing a modern SQL data warehouse using Medallion Architecture to delivering actionable business insights through an interactive Power BI dashboard.
+
+Designed as a portfolio-grade project, it showcases best practices in:
+- Data Engineering
+- ETL Pipelines
+- Dimensional Modeling
+- SQL Analytics
+- Power BI Visualization
+- Business Intelligence
 
 ---
 ## 🏗️ Data Architecture
@@ -22,6 +30,7 @@ This project involves:
 2. **ETL Pipelines**: Extracting, transforming, and loading data from source systems into the warehouse.
 3. **Data Modeling**: Developing fact and dimension tables optimized for analytical queries.
 4. **Analytics & Reporting**: Creating SQL-based reports and dashboards for actionable insights.
+5. **Power BI Dashboarding**: Transforming Gold Layer data into interactive executive, customer, and product dashboards.
 
 🎯 This repository is an excellent resource for professionals and students looking to showcase expertise in:
 - SQL Development
@@ -30,6 +39,10 @@ This project involves:
 - ETL Pipeline Developer  
 - Data Modeling  
 - Data Analytics  
+- Power BI Dashboard Development
+- DAX
+- Business Intelligence
+- Data Visualization
 
 ---
 
@@ -40,6 +53,7 @@ Everything is for Free!
 - **[SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads):** Lightweight server for hosting your SQL database.
 - **[SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16):** GUI for managing and interacting with databases.
 - **[Git Repository](https://github.com/):** Set up a GitHub account and repository to manage, version, and collaborate on your code efficiently.
+- **[Microsoft PowerBI Desktop](https://www.microsoft.com/en-us/power-platform/products/power-bi/desktop):** Design interactive dashboards for analysis and insights
 - **[DrawIO](https://www.drawio.com/):** Design data architecture, models, flows, and diagrams.
 - **[Notion](https://www.notion.com/templates/sql-data-warehouse-project):** Get the Project Template from Notion
 - **[Notion Project Steps](https://www.notion.so/DATA-WAREHOUSE-PROJECT-3531d56a8c1e805287b0fbe99ab88e66?source=copy_link):** Access to All Project Phases and Tasks.
@@ -72,6 +86,29 @@ Develop SQL-based analytics to deliver detailed insights into:
 
 These insights empower stakeholders with key business metrics, enabling strategic decision-making.
 
+---
+
+## 📊 Power BI Dashboard
+
+This project includes an interactive Power BI dashboard built on the Gold Layer star schema to transform warehouse data into business-ready insights.
+
+### Dashboard Pages:
+
+### 1. Executive Dashboard
+- Total Revenue
+- Total Orders
+- Total Quantity
+- Average Order Value (AOV)
+- Monthly Revenue Trend
+- Revenue by Country
+- Revenue by Product Category
+
+### 2. Customer Insights
+### 3. Product Performance
+
+### Dashboard Screenshots:
+![Executive Dashboard](dashboard/dashboard_screenshots/executive-dashboard.png)
+
 ## 📂 Repository Structure
 ```
 data-warehouse-project/
@@ -101,6 +138,13 @@ data-warehouse-project/
 ├── LICENSE                             # License information for the repository
 ├── .gitignore                          # Files and directories to be ignored by Git
 ```
+## 💡 Key Business Insights Generated
+
+- Identified top-performing customers by lifetime revenue
+- Segmented customers into value tiers for retention strategy
+- Evaluated product category performance and contribution
+- Tracked revenue patterns across multiple years
+- Compared product volume vs profitability for strategic planning
 ---
 ---
 ## 🛡️ License

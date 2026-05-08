@@ -55,7 +55,7 @@ The dashboard is built on a dimensional model using:
 - gold.dim_products
 - dim_dates
 
-![Data Model](dashboard_screenshots/dashboard-data-model.png)
+![Data Model](dashboard_screenshots/dashboard-data-flow.png)
 
 ---
 

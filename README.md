@@ -95,18 +95,10 @@ This project includes an interactive Power BI dashboard built on the Gold Layer 
 ### Dashboard Pages:
 
 ### 1. Executive Dashboard
-- Total Revenue
-- Total Orders
-- Total Quantity
-- Average Order Value (AOV)
-- Monthly Revenue Trend
-- Revenue by Country
-- Revenue by Product Category
-
 ### 2. Customer Insights
 ### 3. Product Performance
 
-### Dashboard Screenshots:
+### Dashboard Screenshot:
 ![Executive Dashboard](dashboard/dashboard_screenshots/executive-dashboard.png)
 
 ## 📂 Repository Structure
@@ -138,6 +130,7 @@ data-warehouse-project/
 ├── LICENSE                             # License information for the repository
 ├── .gitignore                          # Files and directories to be ignored by Git
 ```
+---
 ## 💡 Key Business Insights Generated
 
 - Identified top-performing customers by lifetime revenue

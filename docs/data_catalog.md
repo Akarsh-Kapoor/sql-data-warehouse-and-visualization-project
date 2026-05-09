@@ -59,3 +59,26 @@ The Gold Layer is the business-level data representation, structured to support 
 | sales_amount    | INT           | The total monetary value of the sale for the line item, in whole currency units (e.g., 25).   |
 | quantity        | INT           | The number of units of the product ordered for the line item (e.g., 1).                       |
 | price           | INT           | The price per unit of the product for the line item, in whole currency units (e.g., 25).      |
+
+---
+
+---
+
+### 4. **gold.dim_dates**
+
+* **Purpose:** Stores calendar and date-related attributes to support time-based analysis, trend reporting, and business intelligence. This table acts as the central date dimension for joining fact tables with consistent year, quarter, month, and weekday breakdowns.
+* **Columns:**
+
+| Column Name  | Data Type    | Description                                                                                       |
+| ------------ | ------------ | ------------------------------------------------------------------------------------------------- |
+| date_key     | INT          | Surrogate key uniquely identifying each date record in `YYYYMMDD` format (e.g., 20120131).        |
+| full_date    | DATE         | The complete calendar date represented by the record, formatted as YYYY-MM-DD (e.g., 2012-01-31). |
+| year         | INT          | The four-digit calendar year associated with the date (e.g., 2012).                               |
+| quarter      | INT          | The calendar quarter of the year (1 to 4), representing Q1 through Q4.                            |
+| month_number | INT          | Numerical representation of the month (1 = January, 12 = December).                               |
+| month_name   | NVARCHAR(20) | Full name of the month associated with the date (e.g., 'January').                                |
+| day          | INT          | The numerical day of the month (1–31).                                                            |
+| weekday_name | NVARCHAR(20) | Full name of the weekday associated with the date (e.g., 'Monday').                               |
+| month_year   | NVARCHAR(20) | Combined month and year label used for reporting and dashboard trends (e.g., 'Jan 2012').         |
+
+---

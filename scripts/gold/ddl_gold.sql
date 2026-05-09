@@ -93,3 +93,32 @@ LEFT JOIN gold.dim_products pr
 LEFT JOIN gold.dim_customers cu
     ON sd.sls_cust_id = cu.customer_id;
 GO
+
+-- =============================================================================
+-- Create Dimension: gold.dim_dates
+-- =============================================================================
+IF OBJECT_ID('gold.dim_dates', 'V') IS NOT NULL
+    DROP VIEW gold.dim_dates;
+GO
+
+CREATE VIEW gold.dim_dates AS
+WITH date_series AS (
+    SELECT CAST('2010-01-01' AS DATE) AS full_date
+    UNION ALL
+    SELECT DATEADD(DAY, 1, full_date)
+    FROM date_series
+    WHERE full_date < '2015-12-31'
+)
+SELECT
+    CAST(CONVERT(VARCHAR, full_date, 112) AS INT) AS date_key, -- Surrogate key in YYYYMMDD format
+    full_date                                     AS full_date,
+    YEAR(full_date)                               AS year,
+    DATEPART(QUARTER, full_date)                  AS quarter,
+    MONTH(full_date)                              AS month_number,
+    DATENAME(MONTH, full_date)                    AS month_name,
+    DAY(full_date)                                AS day,
+    DATENAME(WEEKDAY, full_date)                  AS weekday_name,
+    FORMAT(full_date, 'MMM yyyy')                 AS month_year
+FROM date_series
+OPTION (MAXRECURSION 0);
+GO

@@ -1,0 +1,285 @@
+/*
+===============================================================================
+Exploratory Data Analysis (EDA)
+Project: SQL Data Warehouse & Visualization
+Purpose:
+    This script explores the Gold Layer data warehouse to generate
+    business insights including:
+    - Database exploration
+    - Dimensions exploration
+    - Date exploration
+    - Measures exploration
+    - Magnitude analysis
+    - Ranking analysis
+
+Usage:
+    - Run these queries after Gold Layer views/tables are created
+    - Use results for business insights, validation, and dashboard planning
+===============================================================================
+*/
+
+-- =============================================================================
+-- 1. DATABASE EXPLORATION
+-- =============================================================================
+
+-- Step 1: Explore all objects in the database
+SELECT * 
+FROM INFORMATION_SCHEMA.TABLES;
+
+-- Step 2: Explore all columns in the database
+SELECT * 
+FROM INFORMATION_SCHEMA.COLUMNS;
+
+-- Step 3: Explore columns for dim_customers table
+SELECT * 
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'dim_customers';
+
+
+-- =============================================================================
+-- 2. DIMENSIONS EXPLORATION
+-- =============================================================================
+
+-- Step 1: Explore all countries where customers come from
+SELECT DISTINCT Country
+FROM gold.dim_customers;
+
+-- Step 2: Explore all product categories and subcategories
+SELECT DISTINCT 
+    subcategory_name, 
+    category_name
+FROM gold.dim_products;
+
+
+-- =============================================================================
+-- 3. DATE EXPLORATION
+-- =============================================================================
+
+-- Step 1: Find first and last order date
+-- Determine total sales history range in years
+SELECT
+    MIN(order_date) AS First_Order_Date,
+    MAX(order_date) AS Last_Order_Date,
+    DATEDIFF(YEAR, MIN(order_date), MAX(order_date)) AS Order_Range_Years
+FROM gold.fact_sales;
+
+-- Step 2: Find youngest and oldest customers
+SELECT
+    DATEDIFF(YEAR, MAX(Birth_Date), GETDATE()) AS Youngest_Customer,
+    DATEDIFF(YEAR, MIN(Birth_Date), GETDATE()) AS Oldest_Customer
+FROM gold.dim_customers;
+
+
+-- =============================================================================
+-- 4. MEASURES EXPLORATION
+-- =============================================================================
+
+-- Step 1: Find total sales
+SELECT 
+    SUM(sales_amount) AS Total_Sales
+FROM gold.fact_sales;
+
+-- Step 2: Find total quantity sold
+SELECT 
+    SUM(quantity) AS Total_Quantity
+FROM gold.fact_sales;
+
+-- Step 3: Find average selling price
+SELECT 
+    AVG(price) AS Average_Selling_Price
+FROM gold.fact_sales;
+
+-- Step 4: Find total number of orders
+SELECT 
+    COUNT(DISTINCT order_number) AS Total_No_Of_Orders
+FROM gold.fact_sales;
+
+-- Step 5: Find total number of products
+SELECT 
+    COUNT(DISTINCT product_name) AS Total_No_Of_Products
+FROM gold.dim_products;
+
+-- Step 6: Find total customers who placed orders
+SELECT 
+    COUNT(DISTINCT customer_key) AS Total_Customers
+FROM gold.fact_sales;
+
+-- Step 7: Generate consolidated business metrics report
+SELECT 'Total_Sales' AS measure_name, SUM(sales_amount) AS measure_value 
+FROM gold.fact_sales
+
+UNION ALL
+
+SELECT 'Total_Quantity' AS measure_name, SUM(quantity) AS measure_value 
+FROM gold.fact_sales
+
+UNION ALL
+
+SELECT 'Average_Selling_Price' AS measure_name, AVG(price) AS measure_value 
+FROM gold.fact_sales
+
+UNION ALL
+
+SELECT 'Total_No_Of_Orders' AS measure_name, COUNT(DISTINCT order_number) AS measure_value 
+FROM gold.fact_sales
+
+UNION ALL
+
+SELECT 'Total_No_Of_Products' AS measure_name, COUNT(DISTINCT product_name) AS measure_value 
+FROM gold.dim_products
+
+UNION ALL
+
+SELECT 'Total_Customers' AS measure_name, COUNT(DISTINCT customer_key) AS measure_value 
+FROM gold.fact_sales;
+
+
+-- =============================================================================
+-- 5. MAGNITUDE ANALYSIS
+-- =============================================================================
+
+-- Step 1: Find total customers by country
+SELECT 
+    COUNT(customer_key) AS Total_Customers, 
+    country
+FROM gold.dim_customers
+GROUP BY country
+ORDER BY Total_Customers DESC;
+
+-- Step 2: Find total customers by gender
+SELECT 
+    COUNT(customer_key) AS Total_Customers, 
+    Gender
+FROM gold.dim_customers
+GROUP BY Gender
+ORDER BY Total_Customers DESC;
+
+-- Step 3: Find total products by category
+SELECT 
+    COUNT(product_key) AS Total_Products, 
+    category_name
+FROM gold.dim_products
+GROUP BY category_name
+ORDER BY Total_Products DESC;
+
+-- Step 4: Find average product cost in each category
+SELECT 
+    AVG(cost) AS Average_Cost, 
+    category_name
+FROM gold.dim_products
+GROUP BY category_name
+ORDER BY Average_Cost DESC;
+
+-- Step 5: Find total revenue generated by each category
+SELECT 
+    SUM(s.sales_amount) AS Total_Revenue, 
+    p.category_name
+FROM gold.dim_products p
+RIGHT JOIN gold.fact_sales s
+    ON p.product_key = s.product_key
+GROUP BY p.category_name
+ORDER BY Total_Revenue DESC;
+
+-- Step 6: Find total revenue generated by each customer
+SELECT 
+    c.Customer_ID, 
+    c.First_name + ' ' + c.Last_name AS Customer_Name,
+    SUM(s.sales_amount) AS Total_Revenue
+FROM gold.fact_sales s
+LEFT JOIN gold.dim_customers c
+    ON s.customer_key = c.customer_key
+GROUP BY 
+    c.Customer_ID, 
+    c.First_name + ' ' + c.Last_name
+ORDER BY Total_Revenue DESC;
+
+-- Step 7: Find distribution of sold items across countries
+SELECT 
+    c.Country,
+    SUM(s.quantity) AS Total_Items_Sold
+FROM gold.fact_sales s
+LEFT JOIN gold.dim_customers c
+    ON s.customer_key = c.customer_key
+GROUP BY c.Country
+ORDER BY Total_Items_Sold DESC;
+
+
+-- =============================================================================
+-- 6. RANKING ANALYSIS
+-- =============================================================================
+
+-- Step 1: Top 5 products by revenue
+SELECT 
+    product_name, 
+    Total_Revenue
+FROM
+(
+    SELECT 
+        p.product_name, 
+        SUM(s.sales_amount) AS Total_Revenue,
+        ROW_NUMBER() OVER (ORDER BY SUM(s.sales_amount) DESC) AS rn
+    FROM gold.fact_sales s
+    LEFT JOIN gold.dim_products p
+        ON s.product_key = p.product_key
+    GROUP BY p.product_name
+) t
+WHERE rn <= 5;
+
+-- Step 2: Bottom 5 products by revenue
+SELECT 
+    product_name, 
+    Total_Revenue
+FROM
+(
+    SELECT 
+        p.product_name, 
+        SUM(s.sales_amount) AS Total_Revenue,
+        ROW_NUMBER() OVER (ORDER BY SUM(s.sales_amount) ASC) AS rn
+    FROM gold.fact_sales s
+    LEFT JOIN gold.dim_products p
+        ON s.product_key = p.product_key
+    GROUP BY p.product_name
+) t
+WHERE rn <= 5;
+
+-- Step 3: Top 10 customers by revenue
+SELECT 
+    First_Name, 
+    Last_Name, 
+    Total_Revenue
+FROM
+(
+    SELECT 
+        c.First_Name, 
+        c.Last_Name, 
+        SUM(s.sales_amount) AS Total_Revenue,
+        ROW_NUMBER() OVER (ORDER BY SUM(s.sales_amount) DESC) AS rn
+    FROM gold.fact_sales s
+    LEFT JOIN gold.dim_customers c
+        ON s.customer_key = c.customer_key
+    GROUP BY 
+        c.First_Name, 
+        c.Last_Name
+) t
+WHERE rn <= 10;
+
+-- Step 4: Bottom 3 customers by orders placed
+SELECT 
+    First_Name, 
+    Last_Name, 
+    Orders_Placed
+FROM
+(
+    SELECT 
+        c.First_Name, 
+        c.Last_Name, 
+        COUNT(DISTINCT s.order_number) AS Orders_Placed,
+        ROW_NUMBER() OVER (ORDER BY COUNT(s.order_number)) AS rn
+    FROM gold.fact_sales s
+    LEFT JOIN gold.dim_customers c
+        ON s.customer_key = c.customer_key
+    GROUP BY 
+        c.First_Name, 
+        c.Last_Name
+) t
+WHERE rn <= 3;

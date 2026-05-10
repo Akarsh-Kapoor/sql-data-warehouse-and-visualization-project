@@ -76,7 +76,7 @@ Develop a modern data warehouse using SQL Server to consolidate sales data, enab
 
 ---
 
-### BI: Analytics & Reporting (Data Analysis)
+### :chart_with_upwards_trend: BI: Analytics & Reporting (Data Analysis)
 
 #### Objective
 Develop SQL-based analytics to deliver detailed insights into:
@@ -100,6 +100,23 @@ This project includes an interactive Power BI dashboard built on the Gold Layer 
 
 ### Dashboard Screenshot:
 ![Executive Dashboard](dashboard/dashboard_screenshots/executive-dashboard.png)
+
+---
+
+## :memo: Exploratory Data Analysis (EDA)
+
+After building the Bronze, Silver, and Gold layers, this project includes SQL-based EDA to uncover business insights:
+
+### Key Analysis Areas:
+- Database structure exploration
+- Customer demographics
+- Product category analysis
+- Sales performance metrics
+- Revenue contribution by country/category/customer
+- Top & bottom product rankings
+- Customer segmentation
+
+---
 
 ## 📂 Repository Structure
 ```

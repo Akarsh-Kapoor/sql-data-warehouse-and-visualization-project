@@ -129,6 +129,7 @@ data-warehouse-project/
 │   ├── data_catalog.md                 # Catalog of datasets, including field descriptions and metadata
 │   ├── data_flow.png                   # Snapshot of Draw.io file for the data flow diagram
 │   ├── data_models.drawio              # Snapshot of Draw.io file for data models (star schema)
+│   ├── data_integration.pmg            # Snapshot of Draw.io file for data integration
 │   ├── naming-conventions.md           # Consistent naming guidelines for tables, columns, and files
 │
 ├── scripts/                            # SQL scripts for ETL and transformations
@@ -136,6 +137,7 @@ data-warehouse-project/
 │   ├── silver/                         # Scripts for cleaning and transforming data
 │   ├── gold/                           # Scripts for creating analytical models
 │   ├── analysis/                       # Script for exploratory data analysis
+│   ├── reports/                        # Scripts for consolidated reports on customer and product key insights
 │
 ├── tests/                              # Test scripts and quality files
 │

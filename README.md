@@ -3,6 +3,8 @@
 Welcome to the **Data Warehouse and Analytics Project** repository! 🚀  
 This project demonstrates a complete end-to-end data solution — from designing a modern SQL data warehouse using Medallion Architecture to delivering actionable business insights through an interactive Power BI dashboard.
 
+It also includes a comprehensive collection of SQL scripts for data exploration, analytics, and reporting. These scripts cover various analyses such as database exploration, measures and metrics, time-based trends, cumulative analytics, segmentation, and more. This repository contains SQL queries designed to help data analysts and BI professionals quickly explore, segment, and analyze data within a relational database. Each script focuses on a specific analytical theme and demonstrates best practices for SQL queries.
+
 Designed as a portfolio-grade project, it showcases best practices in:
 - Data Engineering
 - ETL Pipelines
